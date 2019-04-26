@@ -3,7 +3,7 @@
 
 [[projects]]
   branch = "develop"
-  digest = "1:a721316fc08bdd715e76f7ca4c58e0c08ee3f0ce5f649a1dd007206a3fc6dff9"
+  digest = "1:42b4940075dd2244c2913db0fca5beb292b94cda5f2ac01a53b08904253a29e2"
   name = "github.com/Smilo-platform/web3go"
   packages = [
     "common",
@@ -13,7 +13,7 @@
     "web3",
   ]
   pruneopts = "UT"
-  revision = "05a3b70ba14ae3f2ed30603ca7673be8975c25a4"
+  revision = "e164e97aa21c649d30b83fc96acabd492d43405a"
 
 [[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"

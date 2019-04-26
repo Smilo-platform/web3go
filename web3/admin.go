@@ -31,11 +31,12 @@ package web3
 
 import (
 	"fmt"
+	"web3go/common"
 )
 
 // Admin ...
 type Admin interface {
-	NodeInfo() (string, error)
+	NodeInfo() (*common.NodeInfo, error)
 }
 
 // AdminAPI ...
@@ -49,13 +50,13 @@ func newAdminAPI(requestManager *requestManager) Admin {
 }
 
 // Version returns the current network protocol version.
-func (admin *AdminAPI) NodeInfo() (string, error) {
+func (admin *AdminAPI) NodeInfo() (*common.NodeInfo, error) {
 	req := admin.requestManager.newRequest("admin_nodeInfo")
 	resp, err := admin.requestManager.send(req)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	fmt.Printf(resp.String())
-	return resp.Get("result").(string), nil
+	return resp.Get("result").(*common.NodeInfo), nil
 }
 
