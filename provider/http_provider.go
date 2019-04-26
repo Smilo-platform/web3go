@@ -35,7 +35,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/alanchchen/web3go/rpc"
+	"github.com/Smilo-platform/web3go/rpc"
 )
 
 // HTTPProvider provides basic web3 interface

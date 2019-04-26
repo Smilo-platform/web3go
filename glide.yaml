@@ -1,4 +1,4 @@
-package: github.com/alanchchen/web3go
+package: github.com/Smilo-platform/web3go
 import:
 - package: github.com/stretchr/testify
   subpackages:

@@ -1,20 +1,14 @@
-# web3go (obsolete)
-`web3go` is an [Ethereum](https://github.com/ethereum/go-ethereum) client library that implements [Ethereum JSON RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC), just like [web3.js](https://githu
-b.com/ethereum/web3.js).
+# Smilo web3go
+`web3go` is an [Smilo](https://github.com/Smilo-platform/go-smilo) client library that implements JSON RPC, just like [web3.js](https://github.com/ethereum/web3.js).
 
-[![Gitter](https://badges.gitter.im/alanchchen/web3go.svg)](https://gitter.im/alanchchen/web3go?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![Go Report Card](https://goreportcard.com/badge/github.com/alanchchen/web3go)](https://goreportcard.com/report/github.com/alanchchen/web3go)
-
-| Branch  | Test status | 
-|:-------:|:-----------:|
-| master  | [![Test Status](https://travis-ci.org/alanchchen/web3go.svg?branch=master)](https://travis-ci.org/alanchchen/web3go) [![codecov](https://codecov.io/gh/alanchchen/web3go/branch/master/graph/badge.svg)](https://codecov.io/gh/alanchchen/web3go/branch/master) |
-| develop | [![Test Status](https://travis-ci.org/alanchchen/web3go.svg?branch=develop)](https://travis-ci.org/alanchchen/web3go/) [![codecov](https://codecov.io/gh/alanchchen/web3go/branch/develop/graph/badge.svg)](https://codecov.io/gh/alanchchen/web3go/branch/develop) |
+It is a fork from:  [web3go](https://github.com/alanchchen/web3go), which is currently inactive/obsolete.
 
 # Latest version
 No stable version yet
  
 # Installation
 ```shell
-go get github.com/alanchchen/web3go/...
+go get github.com/Smilo-platform/web3go/...
 ```
 
 # Usage

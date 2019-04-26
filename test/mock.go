@@ -33,7 +33,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/alanchchen/web3go/rpc"
+	"github.com/Smilo-platform/web3go/rpc"
 )
 
 func generateResponse(rpc rpc.RPC, request rpc.Request, result interface{}) (response rpc.Response, err error) {

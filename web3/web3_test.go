@@ -33,7 +33,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/alanchchen/web3go/test"
+	"github.com/Smilo-platform/web3go/test"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
