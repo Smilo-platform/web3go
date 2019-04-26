@@ -163,3 +163,10 @@ type Block struct {
 	Uncles          []Hash   `json:"uncles"`
 	//MinGasPrice     *big.Int `json:"minGasPrice"`
 }
+
+// NodeInfo ...
+type NodeInfo struct {
+	Enode	string `json:"enode"`
+	Enr		string  `json:"enr"`
+	Id		string `json:"id"`
+}

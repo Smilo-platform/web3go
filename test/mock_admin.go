@@ -31,6 +31,9 @@ package test
 
 import (
 	"fmt"
+	"github.com/Smilo-platform/web3go/common"
+	"go-smilo/src/blockchain/smilobft/eth"
+	"math/big"
 
 	"github.com/Smilo-platform/web3go/rpc"
 )
@@ -49,8 +52,15 @@ func NewMockAdminAPI(rpc rpc.RPC) MockAPI {
 func (net *MockAdminAPI) Do(request rpc.Request) (response rpc.Response, err error) {
 	method := request.Get("method").(string)
 	switch method {
+	case "admin_nodeInfoTest":
+		return generateResponse(net.rpc, request, "admin_info")
 	case "admin_nodeInfo":
-		return generateResponse(net.rpc, request, "andim_info")
+		nodeInfo := &common.NodeInfo{
+			Enode: 			string("enode://d1a4eab40a2f846478e87915d9c13b3a5a68025df80a211f9af8db6e40b64c5301b44593540ef5745e8aaaacee58ea06f36029803fb5f80d991ff62edb703686@34.243.28.236:21000"),
+			Enr: 			string("0xf89db8402d58b4aafeaceb7f6caff4dd83d3eda7ee08790cbafdf8cc0d914e7d7023996e4030502adaed4938943a141e6c399b7bb8c4e8c2632c5c663499918029ac9b5082019883636170cbca88736d696c6f626674408269648276348269708422f31cec89736563703235366b31a102d1a4eab40a2f846478e87915d9c13b3a5a68025df80a211f9af8db6e40b64c538374637082520883756470825208"),
+			Id: 			string("12200bbb0ad607e5ee158d5a644097fadec1401f773d2407744006deeea5c12c"),
+		}
+		return generateResponse(net.rpc, request, nodeInfo)
 	}
 
 	return nil, fmt.Errorf("Invalid method %s", method)
