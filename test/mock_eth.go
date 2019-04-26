@@ -33,8 +33,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/Smilo-platform/web3go/common"
-	"github.com/Smilo-platform/web3go/rpc"
+	"web3go/common"
+	"web3go/rpc"
 )
 
 // MockEthAPI ...

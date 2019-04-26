@@ -35,7 +35,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Smilo-platform/web3go/common"
+	"web3go/common"
 )
 
 var (

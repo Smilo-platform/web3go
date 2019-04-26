@@ -33,7 +33,7 @@ import (
 	"encoding/json"
 	"math/big"
 
-	"github.com/Smilo-platform/web3go/common"
+	"web3go/common"
 )
 
 type jsonBlock struct {
@@ -55,6 +55,20 @@ type jsonBlock struct {
 	Timestamp       json.Number    `json:"timestamp"`
 	Transactions    []common.Hash  `json:"transactions"`
 	Uncles          []common.Hash  `json:"uncles"`
+}
+
+type jsonNodeInfo struct {
+	Enode          string    `json:"enode"`
+	Enr            string    `json:"ern"`
+	Id      	   string    `json:"id"`
+}
+
+func (b *jsonNodeInfo) ToNodeInfo() (node *common.NodeInfo) {
+	node = &common.NodeInfo{}
+	node.Enode = b.Enode
+	node.Enr = b.Enr
+	node.Id = b.Id
+	return node
 }
 
 func (b *jsonBlock) ToBlock() (block *common.Block) {

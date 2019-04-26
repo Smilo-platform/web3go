@@ -32,7 +32,7 @@ package web3
 import (
 	"strconv"
 
-	"github.com/Smilo-platform/web3go/common"
+	"web3go/common"
 )
 
 // Net ...

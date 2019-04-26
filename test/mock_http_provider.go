@@ -33,8 +33,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Smilo-platform/web3go/provider"
-	"github.com/Smilo-platform/web3go/rpc"
+	"web3go/provider"
+	"web3go/rpc"
 	"github.com/stretchr/testify/mock"
 )
 

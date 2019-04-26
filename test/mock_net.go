@@ -32,7 +32,7 @@ package test
 import (
 	"fmt"
 
-	"github.com/Smilo-platform/web3go/rpc"
+	"web3go/rpc"
 )
 
 // MockNetAPI ...

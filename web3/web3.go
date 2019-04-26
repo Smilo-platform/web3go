@@ -39,8 +39,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Smilo-platform/web3go/common"
-	"github.com/Smilo-platform/web3go/provider"
+	"web3go/common"
+	"web3go/provider"
 	"github.com/tonnerre/golang-go.crypto/sha3"
 )
 

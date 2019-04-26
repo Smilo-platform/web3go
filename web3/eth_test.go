@@ -35,8 +35,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Smilo-platform/web3go/common"
-	"github.com/Smilo-platform/web3go/test"
+	"web3go/common"
+	"web3go/test"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )

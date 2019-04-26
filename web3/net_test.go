@@ -32,7 +32,7 @@ package web3
 import (
 	"testing"
 
-	"github.com/Smilo-platform/web3go/test"
+	"web3go/test"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )

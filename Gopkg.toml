@@ -26,10 +26,6 @@
 
 
 [[constraint]]
-  branch = "develop"
-  name = "github.com/Smilo-platform/web3go"
-
-[[constraint]]
   branch = "master"
   name = "github.com/tonnerre/golang-go.crypto"
 

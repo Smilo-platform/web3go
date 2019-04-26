@@ -30,7 +30,7 @@
 package provider
 
 import (
-	"github.com/Smilo-platform/web3go/rpc"
+	"web3go/rpc"
 )
 
 // Provider provides basic web3 interface

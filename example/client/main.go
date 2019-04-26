@@ -33,9 +33,9 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/Smilo-platform/web3go/provider"
-	"github.com/Smilo-platform/web3go/rpc"
-	"github.com/Smilo-platform/web3go/web3"
+	"web3go/provider"
+	"web3go/rpc"
+	"web3go/web3"
 )
 
 var hostname = flag.String("hostname", "localhost", "The ethereum client RPC host")

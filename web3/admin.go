@@ -30,6 +30,7 @@
 package web3
 
 import (
+	"encoding/json"
 	"fmt"
 	"web3go/common"
 )
@@ -56,7 +57,11 @@ func (admin *AdminAPI) NodeInfo() (*common.NodeInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf(resp.String())
-	return resp.Get("result").(*common.NodeInfo), nil
+	result := &jsonNodeInfo{}
+	if jsonBytes, err := json.Marshal(resp.Get("result")); err == nil {
+		if err := json.Unmarshal(jsonBytes, result); err == nil {
+			return result.ToNodeInfo(), nil
+		}
+	}
+	return nil, fmt.Errorf("%v", resp.Get("result"))
 }
-

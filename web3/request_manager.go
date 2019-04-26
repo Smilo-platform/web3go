@@ -30,8 +30,8 @@
 package web3
 
 import (
-	"github.com/Smilo-platform/web3go/provider"
-	"github.com/Smilo-platform/web3go/rpc"
+	"web3go/provider"
+	"web3go/rpc"
 )
 
 // requestManager is responsible for passing messages to providers
