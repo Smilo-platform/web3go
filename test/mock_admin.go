@@ -32,9 +32,6 @@ package test
 import (
 	"fmt"
 	"github.com/Smilo-platform/web3go/common"
-	"go-smilo/src/blockchain/smilobft/eth"
-	"math/big"
-
 	"github.com/Smilo-platform/web3go/rpc"
 )
 

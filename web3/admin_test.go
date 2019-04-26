@@ -45,9 +45,9 @@ type AdminTestSuite struct {
 
 func (suite *AdminTestSuite) Test_NodeInfo() {
 	admin := suite.admin
-	version, err := admin.NodeInfo()
+	nodeInfo, err := admin.NodeInfo()
 	assert.NoError(suite.T(), err, "Should be no error")
-	assert.NotEqual(suite.T(), "", version, "nodeInfo is empty")
+	assert.NotEqual(suite.T(), "", nodeInfo, "nodeInfo is empty")
 }
 
 func (suite *AdminTestSuite) SetupTest() {
