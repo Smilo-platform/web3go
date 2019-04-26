@@ -27,66 +27,34 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-package test
+package web3
 
 import (
-	"fmt"
-	"strings"
+	"testing"
 
-	"github.com/Smilo-platform/web3go/provider"
-	"github.com/Smilo-platform/web3go/rpc"
-	"github.com/stretchr/testify/mock"
+	"github.com/Smilo-platform/web3go/test"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 )
 
-// MockAPI ...
-type MockAPI interface {
-	Do(rpc.Request) (rpc.Response, error)
+type AdminTestSuite struct {
+	suite.Suite
+	web3 *Web3
+	admin  Admin
 }
 
-// MockHTTPProvider provides basic web3 interface
-type MockHTTPProvider struct {
-	mock mock.Mock
-	rpc  rpc.RPC
-	apis map[string]MockAPI
+func (suite *AdminTestSuite) Test_NodeInfo() {
+	admin := suite.admin
+	version, err := admin.NodeInfo()
+	assert.NoError(suite.T(), err, "Should be no error")
+	assert.NotEqual(suite.T(), "", version, "nodeInfo is empty")
 }
 
-// NewMockHTTPProvider creates a HTTP provider mock
-func NewMockHTTPProvider() provider.Provider {
-	method := rpc.GetDefaultMethod()
-	return &MockHTTPProvider{rpc: method,
-		apis: map[string]MockAPI{
-			"net": NewMockNetAPI(method),
-			"eth": NewMockEthAPI(method),
-			"admin": NewMockAdminAPI(method),
-		}}
+func (suite *AdminTestSuite) SetupTest() {
+	suite.web3 = NewWeb3(test.NewMockHTTPProvider())
+	suite.admin = suite.web3.Admin
 }
 
-// IsConnected ...
-func (provider *MockHTTPProvider) IsConnected() bool {
-	return true
-}
-
-// Send JSON RPC request through http client
-func (provider *MockHTTPProvider) Send(request rpc.Request) (response rpc.Response, err error) {
-	m := request.Get("method")
-	switch m.(type) {
-	case string:
-		method := m.(string)
-		return provider.dispatchMethod(method, request)
-	default:
-		return nil, fmt.Errorf("Invalid method %v", m)
-	}
-}
-
-func (provider *MockHTTPProvider) dispatchMethod(method string, request rpc.Request) (response rpc.Response, err error) {
-	if index := strings.Index(method, "_"); index > 0 {
-		if api, ok := provider.apis[method[:index]]; ok {
-			return api.Do(request)
-		}
-	}
-	return nil, fmt.Errorf("Unrecognized method %s", method)
-}
-
-func (provider *MockHTTPProvider) GetRPCMethod() rpc.RPC {
-	return provider.rpc
+func Test_AdminTestSuite(t *testing.T) {
+	suite.Run(t, new(AdminTestSuite))
 }

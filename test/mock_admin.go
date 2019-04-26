@@ -31,62 +31,27 @@ package test
 
 import (
 	"fmt"
-	"strings"
 
-	"github.com/Smilo-platform/web3go/provider"
 	"github.com/Smilo-platform/web3go/rpc"
-	"github.com/stretchr/testify/mock"
 )
 
-// MockAPI ...
-type MockAPI interface {
-	Do(rpc.Request) (rpc.Response, error)
+// MockAdminAPI ...
+type MockAdminAPI struct {
+	rpc rpc.RPC
 }
 
-// MockHTTPProvider provides basic web3 interface
-type MockHTTPProvider struct {
-	mock mock.Mock
-	rpc  rpc.RPC
-	apis map[string]MockAPI
+// NewMockNetAPI ...
+func NewMockAdminAPI(rpc rpc.RPC) MockAPI {
+	return &MockAdminAPI{rpc: rpc}
 }
 
-// NewMockHTTPProvider creates a HTTP provider mock
-func NewMockHTTPProvider() provider.Provider {
-	method := rpc.GetDefaultMethod()
-	return &MockHTTPProvider{rpc: method,
-		apis: map[string]MockAPI{
-			"net": NewMockNetAPI(method),
-			"eth": NewMockEthAPI(method),
-			"admin": NewMockAdminAPI(method),
-		}}
-}
-
-// IsConnected ...
-func (provider *MockHTTPProvider) IsConnected() bool {
-	return true
-}
-
-// Send JSON RPC request through http client
-func (provider *MockHTTPProvider) Send(request rpc.Request) (response rpc.Response, err error) {
-	m := request.Get("method")
-	switch m.(type) {
-	case string:
-		method := m.(string)
-		return provider.dispatchMethod(method, request)
-	default:
-		return nil, fmt.Errorf("Invalid method %v", m)
+// Do ...
+func (net *MockAdminAPI) Do(request rpc.Request) (response rpc.Response, err error) {
+	method := request.Get("method").(string)
+	switch method {
+	case "admin_nodeInfo":
+		return generateResponse(net.rpc, request, "andim_info")
 	}
-}
 
-func (provider *MockHTTPProvider) dispatchMethod(method string, request rpc.Request) (response rpc.Response, err error) {
-	if index := strings.Index(method, "_"); index > 0 {
-		if api, ok := provider.apis[method[:index]]; ok {
-			return api.Do(request)
-		}
-	}
-	return nil, fmt.Errorf("Unrecognized method %s", method)
-}
-
-func (provider *MockHTTPProvider) GetRPCMethod() rpc.RPC {
-	return provider.rpc
+	return nil, fmt.Errorf("Invalid method %s", method)
 }

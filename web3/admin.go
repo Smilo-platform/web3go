@@ -27,66 +27,35 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-package test
+package web3
 
 import (
 	"fmt"
-	"strings"
-
-	"github.com/Smilo-platform/web3go/provider"
-	"github.com/Smilo-platform/web3go/rpc"
-	"github.com/stretchr/testify/mock"
 )
 
-// MockAPI ...
-type MockAPI interface {
-	Do(rpc.Request) (rpc.Response, error)
+// Admin ...
+type Admin interface {
+	NodeInfo() (string, error)
 }
 
-// MockHTTPProvider provides basic web3 interface
-type MockHTTPProvider struct {
-	mock mock.Mock
-	rpc  rpc.RPC
-	apis map[string]MockAPI
+// AdminAPI ...
+type AdminAPI struct {
+	requestManager *requestManager
 }
 
-// NewMockHTTPProvider creates a HTTP provider mock
-func NewMockHTTPProvider() provider.Provider {
-	method := rpc.GetDefaultMethod()
-	return &MockHTTPProvider{rpc: method,
-		apis: map[string]MockAPI{
-			"net": NewMockNetAPI(method),
-			"eth": NewMockEthAPI(method),
-			"admin": NewMockAdminAPI(method),
-		}}
+// NewNetAPI ...
+func newAdminAPI(requestManager *requestManager) Admin {
+	return &AdminAPI{requestManager: requestManager}
 }
 
-// IsConnected ...
-func (provider *MockHTTPProvider) IsConnected() bool {
-	return true
-}
-
-// Send JSON RPC request through http client
-func (provider *MockHTTPProvider) Send(request rpc.Request) (response rpc.Response, err error) {
-	m := request.Get("method")
-	switch m.(type) {
-	case string:
-		method := m.(string)
-		return provider.dispatchMethod(method, request)
-	default:
-		return nil, fmt.Errorf("Invalid method %v", m)
+// Version returns the current network protocol version.
+func (admin *AdminAPI) NodeInfo() (string, error) {
+	req := admin.requestManager.newRequest("admin_nodeInfo")
+	resp, err := admin.requestManager.send(req)
+	if err != nil {
+		return "", err
 	}
+	fmt.Printf(resp.String())
+	return resp.Get("result").(string), nil
 }
 
-func (provider *MockHTTPProvider) dispatchMethod(method string, request rpc.Request) (response rpc.Response, err error) {
-	if index := strings.Index(method, "_"); index > 0 {
-		if api, ok := provider.apis[method[:index]]; ok {
-			return api.Do(request)
-		}
-	}
-	return nil, fmt.Errorf("Unrecognized method %s", method)
-}
-
-func (provider *MockHTTPProvider) GetRPCMethod() rpc.RPC {
-	return provider.rpc
-}

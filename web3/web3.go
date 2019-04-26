@@ -85,6 +85,7 @@ type Web3 struct {
 	requestManager *requestManager
 	Eth            Eth
 	Net            Net
+	Admin		   Admin
 }
 
 // NewWeb3 creates a new web3 object.
@@ -94,7 +95,8 @@ func NewWeb3(provider provider.Provider) *Web3 {
 		provider:       provider,
 		requestManager: requestManager,
 		Eth:            newEthAPI(requestManager),
-		Net:            newNetAPI(requestManager)}
+		Net:            newNetAPI(requestManager),
+		Admin:			newAdminAPI(requestManager)}
 }
 
 // IsConnected checks if a connection to a node exists.
