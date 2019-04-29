@@ -178,3 +178,9 @@ type Peer struct {
 	Id		string  `json:"id"`
 	Name	string  `json:"name"`
 }
+
+// TxPool ...
+type Txpool struct {
+	Pending		string `json:"pending"`
+	Queued		string `json:"queued"`
+}

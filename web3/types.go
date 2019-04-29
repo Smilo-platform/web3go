@@ -56,12 +56,23 @@ type jsonBlock struct {
 	Uncles          []common.Hash  `json:"uncles"`
 }
 
+type jsonTxpool struct {
+	Pending		string `json:"pending"`
+	Queued		string `json:"queued"`
+}
+
+func (b *jsonTxpool) ToTxpool() (pool *common.Txpool) {
+	pool = &common.Txpool{}
+	pool.Pending = common.HexToString(b.Pending)
+	pool.Queued = common.HexToString(b.Queued)
+	return pool
+}
+
 type jsonNodeInfo struct {
 	Enode          	string    	`json:"enode"`
 	Name           	string    	`json:"name"`
 	Id      	   	string    	`json:"id"`
 	Ip      	   	string    	`json:"ip"`
-	//Protocols		string 		`json:"protocols"`
 }
 
 func (b *jsonNodeInfo) ToNodeInfo() (node *common.NodeInfo) {

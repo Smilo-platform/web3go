@@ -81,11 +81,12 @@ var (
 // Web3 Standard interface
 // See https://github.com/ethereum/wiki/wiki/JavaScript-API#web3js-api-reference
 type Web3 struct {
-	provider       provider.Provider
-	requestManager *requestManager
-	Eth            Eth
-	Net            Net
-	Admin		   Admin
+	provider       	provider.Provider
+	requestManager 	*requestManager
+	Eth            	Eth
+	Net            	Net
+	Admin		   	Admin
+	Txpool			Txpool
 }
 
 // NewWeb3 creates a new web3 object.
@@ -96,7 +97,8 @@ func NewWeb3(provider provider.Provider) *Web3 {
 		requestManager: requestManager,
 		Eth:            newEthAPI(requestManager),
 		Net:            newNetAPI(requestManager),
-		Admin:			newAdminAPI(requestManager)}
+		Admin:			newAdminAPI(requestManager),
+		Txpool:			newTxpoolAPI(requestManager)}
 }
 
 // IsConnected checks if a connection to a node exists.
