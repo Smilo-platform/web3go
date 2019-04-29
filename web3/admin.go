@@ -38,6 +38,7 @@ import (
 // Admin ...
 type Admin interface {
 	NodeInfo() (*common.NodeInfo, error)
+	Peers() ([]common.Peer, error)
 }
 
 // AdminAPI ...
@@ -50,7 +51,7 @@ func newAdminAPI(requestManager *requestManager) Admin {
 	return &AdminAPI{requestManager: requestManager}
 }
 
-// Version returns the current network protocol version.
+// NodeInfo returns the nodeInfo.
 func (admin *AdminAPI) NodeInfo() (*common.NodeInfo, error) {
 	req := admin.requestManager.newRequest("admin_nodeInfo")
 	resp, err := admin.requestManager.send(req)
@@ -59,9 +60,33 @@ func (admin *AdminAPI) NodeInfo() (*common.NodeInfo, error) {
 	}
 	result := &jsonNodeInfo{}
 	if jsonBytes, err := json.Marshal(resp.Get("result")); err == nil {
+		//fmt.Printf("%s", jsonBytes)
 		if err := json.Unmarshal(jsonBytes, result); err == nil {
 			return result.ToNodeInfo(), nil
 		}
 	}
+	return nil, fmt.Errorf("%v", resp.Get("result"))
+}
+
+// Returns the connected peers.
+func (admin *AdminAPI) Peers() ([]common.Peer, error) {
+	req := admin.requestManager.newRequest("admin_peers")
+	resp, err := admin.requestManager.send(req)
+	if err != nil {
+		return nil, err
+	}
+
+	jsonResponse, err := json.Marshal(resp.Get("result"))
+
+	peerList := make([]common.Peer, 0)
+	err = json.Unmarshal(jsonResponse, &peerList)
+	if err == nil {
+		//fmt.Printf("%+v\n", peerList)
+		return peerList, nil
+	} else {
+		fmt.Println(err)
+		fmt.Printf("%+v\n", peerList)
+	}
+
 	return nil, fmt.Errorf("%v", resp.Get("result"))
 }

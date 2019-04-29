@@ -32,7 +32,6 @@ package web3
 import (
 	"encoding/json"
 	"math/big"
-
 	"web3go/common"
 )
 
@@ -58,17 +57,26 @@ type jsonBlock struct {
 }
 
 type jsonNodeInfo struct {
-	Enode          string    `json:"enode"`
-	Enr            string    `json:"ern"`
-	Id      	   string    `json:"id"`
+	Enode          	string    	`json:"enode"`
+	Name           	string    	`json:"name"`
+	Id      	   	string    	`json:"id"`
+	Ip      	   	string    	`json:"ip"`
+	//Protocols		string 		`json:"protocols"`
 }
 
 func (b *jsonNodeInfo) ToNodeInfo() (node *common.NodeInfo) {
 	node = &common.NodeInfo{}
 	node.Enode = b.Enode
-	node.Enr = b.Enr
+	node.Name = b.Name
 	node.Id = b.Id
+	node.Ip = b.Ip
 	return node
+}
+
+type jsonPeer struct {
+	Enode          string    `json:"enode"`
+	Name           string    `json:"name"`
+	Id      	   string    `json:"id"`
 }
 
 func (b *jsonBlock) ToBlock() (block *common.Block) {

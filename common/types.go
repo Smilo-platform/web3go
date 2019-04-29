@@ -167,6 +167,14 @@ type Block struct {
 // NodeInfo ...
 type NodeInfo struct {
 	Enode	string `json:"enode"`
-	Enr		string  `json:"enr"`
 	Id		string `json:"id"`
+	Name	string `json:"name"`
+	Ip		string `json:"ip"`
+}
+
+// Peer
+type Peer struct {
+	Enode	string  `json:"enode"`
+	Id		string  `json:"id"`
+	Name	string  `json:"name"`
 }
